@@ -1,6 +1,10 @@
-#!/usr/bin/tcc -run
+#!/usr/bin/tcc -run -ledit
+
+#include <editline/readline.h>
+#include <editline/history.h>
 
 #include <stdio.h>
+#include <stdlib.h>
 
 char const* READ(char const* str) {
   return str;
@@ -26,10 +30,10 @@ static char BUFF_G[BUFF_SZ];
 
 int main() {
   for ( ; ; ) {
-    printf("user> ");
-    char const* str1 = fgets(BUFF_G, BUFF_SZ, stdin);
+    char const* str1 = readline("user> ");
+    add_history(str1);
     char const* str2 = rep(str1);
-    printf("%s\n", str2);
+    printf("%s\n\n", str2);
+    free(str1);
   }
-  
 }
